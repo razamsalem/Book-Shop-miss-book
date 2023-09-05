@@ -1,0 +1,16 @@
+.app-header {
+  background-color: var(--clrPrimaryLight1);
+  color: #088395;
+  padding: 1em;
+}
+
+.app-header a.active {
+  color: #326281;
+  font-weight: 700;
+}
+
+@media(max-width: 720px) {
+  .app-header {
+    /* color: var(--clr2bg); */
+  }
+}

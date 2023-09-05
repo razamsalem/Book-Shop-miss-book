@@ -1,0 +1,35 @@
+button {
+    cursor: pointer;
+    color: var(--clrPrimaryDark1);
+    background-color: rgba(70, 130, 169,.4);
+    margin: 0.5em;
+    border: 0;
+    padding: 0.5em 0.8em;
+    border-radius: 25px;
+    transition: background-color .6s; 
+    grid-column: 2;  
+}
+
+button:hover {
+    background-color: rgba(116, 155, 194,.9);
+    transition: .3s;
+}
+
+input {
+    padding: 8px 12px;
+    border: 1px solid var( --clrPrimaryDark1);
+    border-radius: 8px;
+    grid-column: 2;
+}
+
+input:focus {
+    background-color: #e1e0d9;
+    transition: background-color 1s;
+    outline: 1px solid var(--clrPrimaryDark1)
+}
+
+label {
+    grid-column: 2;
+    font-size: 20px;
+    font-weight: 800;
+}
