@@ -117,7 +117,7 @@ export function BookDetails() {
               <button onClick={() => onDeleteReview(id)}>Remove Review</button>
             </ul>
           ))) ||
-          'No Reviews'}
+          'No Reviews yet, you can be the first to review this book!'}
       </section>
       <button>
         <Link to={`/book/${params.bookId}/review`}>Add Review</Link>
@@ -127,7 +127,11 @@ export function BookDetails() {
           <AddReview />
         </Outlet>
       </section>
-      <button onClick={onBack}>Back</button>
+      <div className="details-btns flex ">
+        <button><Link to={`/book/${book.prevBookId}`}>Previous Book</Link></button>
+        <button onClick={onBack}>Go Back</button>
+        <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
+      </div>
     </section>
   )
 }

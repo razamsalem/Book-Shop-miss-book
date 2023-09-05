@@ -5,13 +5,13 @@
 }
 
 .book-filter form {
-    display: grid;
-    grid-template-columns: 20px 1fr 20px;
-    grid-gap: 10px;
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-gap: 10px;
 }
 
 .book-filter button {
-    font-weight: 700;
-    color: #088395;
-    margin-block-end: 10px;
+  font-weight: 700;
+  color: #088395;
+  margin-block-end: 10px;
 }
