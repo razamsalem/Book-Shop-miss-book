@@ -551,19 +551,8 @@ function _createBooks() {
   let books = utilService.loadFromStorage(BOOK_KEY)
   if (!books || !books.length) {
     books = demoBooks
-    // books = []
-    // books.push(_createBook('audu', 300))
-    // books.push(_createBook('fiak', 120))
-    // books.push(_createBook('subali', 100))
-    // books.push(_createBook('mitsu', 150))
     utilService.saveToStorage(BOOK_KEY, books)
   }
-}
-
-function _createBook(vendor, maxSpeed = 250) {
-  const book = getEmptyBook(vendor, maxSpeed)
-  book.id = utilService.makeId()
-  return book
 }
 
 function _setNextPrevBookId(book) {
@@ -577,40 +566,15 @@ function _setNextPrevBookId(book) {
   })
 }
 
-
-// function addGoogleBook(book) {
-//   console.log(book)
-//   const { title, authors, subtitle, imageLinks, publishedDate, categories, pageCount, description, language, } = book.volumeInfo
-
-//   const newBook = {
-//     title: title || 'Untitled',
-//     subtitle: subtitle || utilService.makeLorem(3),
-//     authors: authors || [],
-//     publishedDate: publishedDate || 1900,
-//     pageCount: pageCount || 0,
-// categories: categories || ['General'],
-//     description: description || utilService.makeLorem(),
-//     thumbnail: imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg',
-//     language: language || 'en',
-//     listPrice: {
-//       price: utilService.getRandomIntInclusive(10, 70),
-//       currencyCode: 'EUR',
-//       isOnSale: false,
-//     },
-//   }
-
-//   return save(newBook).then(() => newBook)
-// }
-
 function prepareData(book) {
   const { volumeInfo: { title, subtitle, authors, publishedDate, description, pageCount, categories, imageLinks, language } } = book
   const newBook = {
-    title,
-    subtitle: subtitle || title,
-    authors,
+    title: title || utilService.makeLorem(2),
+    subtitle: subtitle || utilService.makeLorem(4),
+    authors: authors || [],
     publishedDate,
-    description,
-    pageCount,
+    description: description || utilService.makeLorem(),
+    pageCount: pageCount || 0,
     categories: categories || ['General'],
     language,
     listPrice: {
@@ -618,7 +582,7 @@ function prepareData(book) {
       currencyCode: 'EUR',
       isOnSale: false,
     },
-    thumbnail: imageLinks.thumbnail
+    thumbnail: imageLinks.thumbnail || 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg',
   }
   return newBook
 }

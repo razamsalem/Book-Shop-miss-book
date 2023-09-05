@@ -8,6 +8,7 @@ export function AddGoogleBook() {
 
     const navigate = useNavigate()
 
+
     function getBooksFromGoogle(keyword) {
         bookService.getGoogleBooks(keyword)
             .then(setBooks)
@@ -23,6 +24,19 @@ export function AddGoogleBook() {
         let keyword = ev.target.value
         keyword = encodeURIComponent(keyword)
         getBooksFromGoogle(keyword)
+    }
+
+    function SearchBar({ onChangeKeyword }) {
+        return (
+            <div>
+                <button onClick={onBack}><i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i></button>
+                <input className="google-search" type="text" onChange={utilService.debounce(onChangeKeyword, 300)} placeholder="Search for a book.." />
+            </div>
+        )
+    }
+
+    function onBack() {
+        navigate('/book')
     }
 
     if (!books) {
@@ -43,8 +57,9 @@ export function AddGoogleBook() {
                 {books.map(book => {
                     return (
                         <li key={book.thumbnail}>
-                            <h3 className="google-book-title">{book.title}</h3>
-                            <button onClick={() => { saveGoogleBook(book) }}>+</button>
+                            <h5 className="google-book-title"> <img src={book.thumbnail} /> {book.title}
+                                <button onClick={() => { saveGoogleBook(book) }}><i className="fa-solid fa-plus"></i></button>
+                            </h5>
                         </li>)
                 })}
             </ul>
@@ -53,8 +68,3 @@ export function AddGoogleBook() {
 }
 
 
-function SearchBar({ onChangeKeyword }) {
-    return (
-        <input className="google-search" type="text" onChange={utilService.debounce(onChangeKeyword, 300)} placeholder="Search for a book.." />
-    )
-}

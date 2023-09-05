@@ -108,7 +108,7 @@ export function BookDetails() {
       {book.listPrice.isOnSale && (
         <img
           className="on-sale"
-          src="../assets/img/book-sale.png"
+          src="./assets/img/book-sale.png"
           alt="Book Sale banner"
         />
       )}
@@ -124,7 +124,7 @@ export function BookDetails() {
               <button onClick={() => onDeleteReview(id)}>Remove Review</button>
             </ul>
           ))) ||
-          'No Reviews yet, you can be the first to review this book!'}
+          'No Reviews'}
       </section>
       <button className="add-review-btn">
         <Link to={`/book/${params.bookId}/review`}>Add Review</Link>
