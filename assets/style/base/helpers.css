@@ -1,4 +1,13 @@
-flex helpers
+/* general helpers */
+.align-left {
+    text-align: left;
+}
+
+.gold {
+    color: gold;
+}
+
+/* flex helpers */
 
 .flex {
   display: flex;

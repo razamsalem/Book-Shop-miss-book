@@ -1,13 +1,18 @@
 import { bookService } from '../services/book.service.js'
-import { showSuccessMsg } from '../services/event-bus.service.js'
-
-const { useState } = React
+import { ReviewList } from "./ReviewList.jsx"
+const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
 
 export function AddReview() {
-  const [reviewToAdd, setReviewToAdd] = useState(bookService.getEmptyReview())
-  const navigate = useNavigate()
+  const [reviewToEdit, setReviewToEdit] = useState(null)
+  const [reviews, setReviews] = useState(null)
   const params = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    _getReviewsFromStorage()
+  }, [])
+
 
   function handleChange({ target }) {
     const field = target.name
@@ -27,53 +32,46 @@ export function AddReview() {
         break
     }
 
-    setReviewToAdd((prevReview) => ({ ...prevReview, [field]: value }))
+    setReviewToEdit(prevReviewToEdit => ({ ...prevReviewToEdit, [field]: value }))
+  }
+
+  function _getReviewsFromStorage() {
+    bookService.get(params.bookId)
+      .then(book => setReviews(book.reviews))
   }
 
   function onSaveReview(ev) {
     ev.preventDefault()
-    bookService
-      .addReview(params.bookId, reviewToAdd)
-      .then((book) => {
-        console.log('book', book)
-        navigate(`/book/${book.id}`)
-        // showSuccessMsg(`Review has been published successfully`)
-        return book
+    const bookId = params.bookId
+    bookService.addReview(bookId, reviewToEdit)
+      .then(_getReviewsFromStorage)
+      .then(eventBusService.showSuccessMsg('Review Sent!'))
+      .catch(err => {
+        console.log('Error:', err)
+        eventBusService.showErrorMsg('Error - Couldn\'t published review')
       })
-      .catch((err) => console.log('err:', err))
   }
-
-  const { fullName, rating, readAt } = reviewToAdd
 
   return (
     <section className="book-edit">
-      <form onSubmit={onSaveReview}>
-        <label htmlFor="fullName">Full name:</label>
-        <input
-          onChange={handleChange}
-          value={fullName}
-          type="text"
-          name="fullName"
-          id="fullName"
-        />
+      <ReviewList reviews={reviews} />
+
+      <form onSubmit={onSaveReview} onChange={handleChange}>
+        <label htmlFor="fullName">Your name:</label>
+        <input type="text" name="fullName" id="fullName" required />
 
         <label htmlFor="rating">Rating:</label>
-        <input
-          onChange={handleChange}
-          value={rating}
-          type="number"
-          name="rating"
-          id="rating"
-        />
+        <select defaultValue={1} id="rating" name="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
 
         <label htmlFor="readAt">Read at:</label>
-        <input
-          onChange={handleChange}
-          value={readAt}
-          type="date"
-          name="readAt"
-          id="readAt"
-        />
+        <input type="date" name="readAt" id="readAt" required />
+
         <button>Post</button>
       </form>
     </section>

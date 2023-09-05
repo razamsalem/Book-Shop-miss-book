@@ -8,13 +8,11 @@
 @import 'base/layout.css';
 @import 'base/forms.css';
 
-/* Pages */
-@import 'pages/app-header.css';
-@import 'pages/book-details.css';
-@import 'pages/book-edit.css';
-
 /* Components */
-@import 'cmps/user-msg.css';
-@import 'cmps/book-list.css';
-@import 'cmps/book-preview.css';
-@import 'cmps/book-filter.css';
+@import 'cmps/AppHeader.css';
+@import 'cmps/BookDetails.css';
+@import 'cmps/BookEdit.css';
+@import 'cmps/UserMsg.css';
+@import 'cmps/BookList.css';
+@import 'cmps/BookPreview.css';
+@import 'cmps/BookFilter.css';
