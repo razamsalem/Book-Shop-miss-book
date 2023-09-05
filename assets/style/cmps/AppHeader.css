@@ -9,6 +9,10 @@
   font-weight: 700;
 }
 
+.header-container .header {
+  font-size: 38px;
+}
+
 @media(max-width: 720px) {
   .app-header {
     /* color: var(--clr2bg); */

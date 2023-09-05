@@ -2,6 +2,7 @@ const { useState } = React
 const Router = ReactRouterDOM.HashRouter
 const { Routes, Route } = ReactRouterDOM
 
+import { AddGoogleBook } from './cmps/AddGoogleBook.jsx'
 import { AddReview } from './cmps/AddReview.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { About } from './pages/About.jsx'
@@ -26,6 +27,7 @@ export function App() {
             </Route>
             <Route path="/book/edit/:bookId" element={<BookEdit />} />
             <Route path="/book/edit" element={<BookEdit />} />
+            <Route path="/book/add-g-book" element={<AddGoogleBook />} />
             <Route path="/book" element={<BookIndex />} />
           </Routes>
         </main>

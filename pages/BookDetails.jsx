@@ -86,16 +86,23 @@ export function BookDetails() {
   if (!book) return <div>Loading...</div>
   return (
     <section className="book-details">
-      <h1>{book.title}</h1>
+      <h1><span className="back-from-details"><button onClick={onBack}><i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i></button></span>
+        {book.title}
+        <span className="edit-details">
+          <button> <Link to={`/book/edit/${book.id}`}><i className="fa-regular fa-pen-to-square"></i></Link></button>
+        </span></h1>
+
       <h2>{book.subtitle}</h2>
       <h4>By: {book.authors.join(', ')}</h4>
       <LongTxt txt={book.description} length={100} />
+
       <img className="banner" src={book.thumbnail} />
       <h5>published date: {getBookPublishedYear()} </h5>
       <h5>
         {book.pageCount} Pages {getDynPagesLine()}
       </h5>
       <h5>Categories: {book.categories.join(', ')}</h5>
+
       <p>language: {book.language.toUpperCase()} </p>
       <p className={`price ${getBookPrice()}`}>Price: {getBookPrice()}</p>
       {book.listPrice.isOnSale && (
@@ -110,7 +117,7 @@ export function BookDetails() {
         {(book.reviews &&
           book.reviews.length &&
           book.reviews.map(({ id, fullName, rating, readAt }) => (
-            <ul key={params.id + fullName}>
+            <ul className="clean-list" key={params.id + fullName}>
               <li>Name: {fullName}</li>
               <li>Rating: {rating}</li>
               <li>Read At: {readAt}</li>
@@ -119,7 +126,7 @@ export function BookDetails() {
           ))) ||
           'No Reviews yet, you can be the first to review this book!'}
       </section>
-      <button>
+      <button className="add-review-btn">
         <Link to={`/book/${params.bookId}/review`}>Add Review</Link>
       </button>
       <section>
@@ -129,7 +136,6 @@ export function BookDetails() {
       </section>
       <div className="details-btns flex ">
         <button><Link to={`/book/${book.prevBookId}`}>Previous Book</Link></button>
-        <button onClick={onBack}>Go Back</button>
         <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
       </div>
     </section>

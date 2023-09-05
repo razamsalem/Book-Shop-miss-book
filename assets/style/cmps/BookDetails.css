@@ -7,14 +7,30 @@
     border: 5px groove var(--clrPrimaryDark1);
     border-radius: 25px;
 }
+
 .book-details h1 {
     color: #024f83;
     font-size: 2em;
-    
+    align-self:center;
 }
+
+.book-details .edit-details {
+    margin-inline-start: .7em;
+}
+
+.book-details .back-from-details {
+    margin-inline-end: .7em;
+}
+
 .book-details h2 {
-    color:#026ab0;
+    color: #026ab0;
+    align-self:center;
 }
+
+.book-details h4 {
+    align-self:center;
+}
+
 .book-details .banner {
     max-width: 200px;
     display: block;
@@ -29,7 +45,7 @@
     color: #C70039;
 }
 
-.book-details .on-sale{
+.book-details .on-sale {
     max-width: 100%;
 }
 
@@ -43,3 +59,13 @@
     cursor: pointer;
     color: #286a96;
 }
+
+.book-details .reviews {
+    align-self:center;
+}
+
+.book-details .add-review-btn {
+    margin-block: 1em;
+    align-self:center;
+}
+

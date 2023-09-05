@@ -30,16 +30,17 @@ export function BookIndex() {
         showSuccessMsg(`Car Removed ${bookId}`)
       })
       .catch((err) => {
-      console.log('err:', err)
-      showErrorMsg(`Problem removing book ${bookId}`)
-    })
-    }
+        console.log('err:', err)
+        showErrorMsg(`Problem removing book ${bookId}`)
+      })
+  }
 
   if (!books) return <div> Loading... </div>
   return (
     <section className="book-index">
       <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-      <button><Link to="/book/edit">Add Book</Link></button>
+      <button><Link to="/book/add-g-book" className="add-book">Add Book from google</Link></button>
+      <button><Link to="/book/edit">Add custom book</Link></button>
       <BookList books={books} onRemoveBook={onRemoveBook} />
     </section>
   )

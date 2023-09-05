@@ -457,6 +457,7 @@ export const bookService = {
   getEmptyReview,
   addReview,
   deleteReview,
+  getGoogleBooks,
 }
 
 function query(filterBy = {}) {
@@ -501,19 +502,19 @@ function save(book) {
 function getEmptyBook() {
   return {
     title: '',
+    subtitle: '',
+    authors: [],
+    publishedDate: 1900,
+    pageCount: 0,
+    categories: [],
+    description: '',
+    thumbnail: 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg',
+    language: '',
     listPrice: {
-      price: 80,
+      price: 0,
       currencyCode: 'EUR',
       isOnSale: false,
     },
-    publishedDate: '',
-    subtitle: '',
-    authors: '',
-    description: '',
-    pageCount: '',
-    categories: '',
-    thumbnail: '',
-    language: '',
   }
 }
 
@@ -576,3 +577,57 @@ function _setNextPrevBookId(book) {
   })
 }
 
+
+// function addGoogleBook(book) {
+//   console.log(book)
+//   const { title, authors, subtitle, imageLinks, publishedDate, categories, pageCount, description, language, } = book.volumeInfo
+
+//   const newBook = {
+//     title: title || 'Untitled',
+//     subtitle: subtitle || utilService.makeLorem(3),
+//     authors: authors || [],
+//     publishedDate: publishedDate || 1900,
+//     pageCount: pageCount || 0,
+// categories: categories || ['General'],
+//     description: description || utilService.makeLorem(),
+//     thumbnail: imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg',
+//     language: language || 'en',
+//     listPrice: {
+//       price: utilService.getRandomIntInclusive(10, 70),
+//       currencyCode: 'EUR',
+//       isOnSale: false,
+//     },
+//   }
+
+//   return save(newBook).then(() => newBook)
+// }
+
+function prepareData(book) {
+  const { volumeInfo: { title, subtitle, authors, publishedDate, description, pageCount, categories, imageLinks, language } } = book
+  const newBook = {
+    title,
+    subtitle: subtitle || title,
+    authors,
+    publishedDate,
+    description,
+    pageCount,
+    categories: categories || ['General'],
+    language,
+    listPrice: {
+      price: utilService.getRandomIntInclusive(10, 190),
+      currencyCode: 'EUR',
+      isOnSale: false,
+    },
+    thumbnail: imageLinks.thumbnail
+  }
+  return newBook
+}
+
+function getGoogleBooks(keyword) {
+  return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}`)
+    .then(res => res.data.items)
+    .then(books => {
+      const booksToController = books.map(book => prepareData(book))
+      return booksToController
+    })
+}
